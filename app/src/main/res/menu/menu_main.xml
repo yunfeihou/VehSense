@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity" >
+    <item android:id="@+id/action_addnote" android:title="@string/action_addnote"
+        android:icon="@drawable/ic_action_note"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
+    <item android:id="@+id/action_startobd" android:title="@string/action_startobd"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/stop_obd" android:title="@string/action_stopobd"
+        android:orderInCategory="100" app:showAsAction="never" android:visible="false"/>
+</menu>
