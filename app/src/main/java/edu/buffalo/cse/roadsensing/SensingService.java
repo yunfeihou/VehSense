@@ -1,5 +1,6 @@
 package edu.buffalo.cse.roadsensing;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -68,6 +69,7 @@ public class SensingService extends Service {
         return super.onUnbind(intent);
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public IBinder onBind(Intent intent) {
 
