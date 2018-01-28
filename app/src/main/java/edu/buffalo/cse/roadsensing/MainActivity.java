@@ -26,6 +26,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -301,14 +302,16 @@ public class MainActivity extends AppCompatActivity {
         if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1); // 1 for write file
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION},1); // 1 for write file and location
         }
-        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},2);
 
+        File outputdir = new File(Environment.getExternalStorageDirectory() + foldername);
+        if (!outputdir.isDirectory()){
+            if (!outputdir.mkdirs()){
+                Log.e("MainActivity", "Directory not created");
+            }
         }
+
     }
 
     /**
@@ -322,6 +325,13 @@ public class MainActivity extends AppCompatActivity {
         Thread uiThread = null;
         @Override
         public void onClick(View view) {
+
+            //Check run time permission for Location
+            if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},2); // 2 for location
+            }
 
             if (!fabclicked) {//start
                 Snackbar.make(view, "Recording...", Snackbar.LENGTH_LONG)
@@ -481,15 +491,17 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch(requestCode){
-            case 1:{
+            case 1:{ //checked in OnCreate()
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //create directory for the first time
+                    new File(Environment.getExternalStorageDirectory() + foldername).mkdirs();
                 } else {
                     Toast.makeText(MainActivity.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
                 }
                 return;
             }
-            case 2:{
+            case 2:{ //checked in Fab onClick()
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 

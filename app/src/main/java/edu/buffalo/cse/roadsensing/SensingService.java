@@ -160,15 +160,15 @@ public class SensingService extends Service {
                     case Sensor.TYPE_GRAVITY:
                         output = "GRV, ";
                         break;
-                    case Sensor.TYPE_GYROSCOPE:
-                        output = "GYR, ";
-                        break;
-                    case Sensor.TYPE_LINEAR_ACCELERATION:
-                        output = "LIN, ";
-                        break;
-                    case Sensor.TYPE_ROTATION_VECTOR:
-                        output = "ROT, ";
-                        break;
+//                    case Sensor.TYPE_GYROSCOPE:
+//                        output = "GYR, ";
+//                        break;
+//                    case Sensor.TYPE_LINEAR_ACCELERATION:
+//                        output = "LIN, ";
+//                        break;
+//                    case Sensor.TYPE_ROTATION_VECTOR:
+//                        output = "ROT, ";
+//                        break;
                 }
                 output += time + ", " + event.values[0] +", "+event.values[1]+ ", "+event.values[2]+"\n";
                 if(bw != null){
