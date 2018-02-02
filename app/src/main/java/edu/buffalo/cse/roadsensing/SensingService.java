@@ -116,9 +116,10 @@ public class SensingService extends Service {
             String output = "";
             if(bw != null && isWriterReady){
                 try {
-                    //Lat, Long, Speed, Satellite count
+                    //Lat, Long, Alti, Speed, Satellite count
                     long time = System.currentTimeMillis()%3600000;
                     output = "GPS, " + time + ", " + location.getLatitude() + ", " + location.getLongitude()
+                            +", "+ location.getAltitude()
                             +", " + location.getSpeed() + ", "+ location.getExtras().get("satellites")+"\n";
                     bw.write(output);
                 } catch (IOException e) {

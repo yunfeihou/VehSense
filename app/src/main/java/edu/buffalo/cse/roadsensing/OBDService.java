@@ -16,7 +16,9 @@ import android.widget.Toast;
 
 import com.github.pires.obd.commands.ObdCommand;
 import com.github.pires.obd.commands.SpeedCommand;
+import com.github.pires.obd.commands.engine.MassAirFlowCommand;
 import com.github.pires.obd.commands.engine.RPMCommand;
+import com.github.pires.obd.commands.fuel.AirFuelRatioCommand;
 import com.github.pires.obd.commands.protocol.EchoOffCommand;
 import com.github.pires.obd.commands.protocol.LineFeedOffCommand;
 import com.github.pires.obd.commands.protocol.ObdResetCommand;
@@ -124,6 +126,8 @@ public class OBDService extends Service {
             commandList = new ArrayList<>();
             commandList.add(new RPMCommand());
             commandList.add(new SpeedCommand());
+            commandList.add(new MassAirFlowCommand());
+            commandList.add(new AirFuelRatioCommand());
 
             file = new File(Environment.getExternalStorageDirectory() + foldername + filename);
 
